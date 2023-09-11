@@ -2,22 +2,32 @@
 #include <stdlib.h>
 #include "bubble_sort.h"
 
-void imprimir_arr(int arr[], int n)[
-    printf("\n");
-    for(int i = 0; i < 0; i++){
-        printf("%d", arr[i]);
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        printf("Uso: %s <lista de números>\n", argv[0]);
+        return 1;
     }
-    ptinf("\n");
-]
 
-int main (int argc, char* argv[]){
+    int num_elements = argc - 1;
+    int *numbers = (int *)malloc(num_elements * sizeof(int));
 
-    int arr_inteiros = {54, 26, 93, 17, 77, 31, 44, 55, 20};
-    int n = sizeof(arr_inteiros) / sizeof(int);
+    if (!numbers) {
+        printf("Erro ao alocar memória\n");
+        return 1;
+    }
 
-    imprimir_arr(arr_inteiros, n);
-    bubble_sort(arr_inteiros, n);
-    imprimir_arr(arr_inteiros, n);
+    for (int i = 1; i < argc; i++) {
+        numbers[i - 1] = atoi(argv[i]);
+    }
 
-    exit(0);
+    bubble_sort(numbers, num_elements);
+
+    printf("Saída ordenada: ");
+    for (int i = 0; i < num_elements; i++) {
+        printf("%d ", numbers[i]);
+    }
+    printf("\n");
+
+    free(numbers);
+    return 0;
 }
